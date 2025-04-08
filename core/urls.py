@@ -1,11 +1,11 @@
 from django.urls import path
 from . import views
-from .views import forum
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('foro/', views.forum, name='forum'),
-    path('registrarse/', views.signup, name='signup'),
-    path('iniciar-sesion/', views.login, name='login'),
-    path('micuenta/', views.account, name='account'),
+    path('forum/', views.forum, name='forum'),
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.login, name='login'),
+    path('account/', views.account, name='account'),
+    path('<str:section>/', views.home, name='section'),
 ]

@@ -10,6 +10,10 @@
 }
 
 body {
+	background-color: #000000;
+}
+
+body {
 	background: var(--fondo);
 	font-family: 'Open Sans', sans-serif;
 }
@@ -74,7 +78,7 @@ header nav a.activo {
 	font-size: 16px;
 	min-height: 40.62em;
 	color: #fff;
-	background: linear-gradient(rgba(0, 0, 0, .363) 0%, rgba(0, 0, 0, 0.363) 100%), url(../img_wiki/TheforestPrueba1.png);
+	background: linear-gradient(rgba(0, 0, 0, .363) 0%, rgba(0, 0, 0, 0.363) 100%), url(../img/img_wiki/TheforestPrueba1.png);
 	background-position: center center;
 	background-size: cover;
 	margin-bottom: 3.12em;
