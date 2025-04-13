@@ -1,8 +1,11 @@
 {% extends 'core/base.html' %}
+
 {% load static %}
 
+{% block title %} {{title}} - The Forest Wiki {% endblock %}
+
+{% block content %}
 <body id="fondo1">
-    {% block content %}
     <div class="container">
         <H5>Comenta respecto al juego!</H5>
         <div class="row comentarios justify-content-center">
@@ -45,9 +48,7 @@
                             <a href="#"> Editar</a>
                             <a href="#"> Borrar</a>
                         </div>
-
                     </div>
-
                 </div>
 
                 <div class="media">
@@ -64,9 +65,10 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>
-    {% endblock content %}
 </body>
+{% endblock content %}
 </html>

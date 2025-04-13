@@ -29,13 +29,13 @@ def forum(request):
 def signup(request):
     return render(request, 'core/registro_wiki.html', {
         'title': 'Registrarse',
-        'stylesheet': 'core/css/csslogin/login.css'
+        'stylesheet': 'core/css/login.css'
     })
 
 def login(request):
     return render(request, 'core/inicio_sesion_wiki.html', {
         'title': 'Iniciar Sesión',
-        'stylesheet': 'core/css/csslogin/login.css'
+        'stylesheet': 'core/css/login.css'
     })
 
 def account(request):

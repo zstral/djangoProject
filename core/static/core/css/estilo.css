@@ -10,11 +10,10 @@
 }
 
 body {
-	background-color: #000000;
+	background-color: #000000 !important;
 }
 
 body {
-	background: var(--fondo);
 	font-family: 'Open Sans', sans-serif;
 }
 
