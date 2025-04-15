@@ -1,8 +1,8 @@
 {% extends 'core/base.html' %}
 
-{% load static %}
+{% load static widget_tweaks %}
 
-{%block title %} {{title}} - The Forest Wiki {% endblock %}
+{% block title %} {{title}} - The Forest Wiki {% endblock %}
 
 {% block content %}
 <body class="bg-dark">
@@ -35,24 +35,32 @@
                 </div>
                 <div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
                     <h1 class="font-weight-bold mb-4" id="subir">Ingrese sus Datos</h1>
-                    <form class="mb-5">
+                    <form class="mb-5" method="post">
+                        {% csrf_token %}
                         <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Email</label>
-                            <input type="email" class="form-control bg-dark-x border-0" id="exampleInputEmail1" placeholder="nombre@ejemplo.com" aria-describedby="emailHelp" style="background-color: #ffffff;">
+                            <label for="{{ form.username.id_for_label }}" class="form-label font-weight-bold">Nombre</label>
+                            {{ form.username|add_class:"form-control border-0"|attr:"placeholder:Ingrese su nombre" }}
                         </div>
                         <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Contraseña</label>
-                            <input type="email" class="form-control bg-dark-x border-0" id="exampleInputEmail1" placeholder="Ingrese su contraseña" aria-describedby="emailHelp" style="background-color: #ffffff;">
+                            <label for="{{ form.email.id_for_label }}" class="form-label font-weight-bold">Email</label>
+                            {{ form.email|add_class:"form-control border-0"|attr:"placeholder:nombre@ejemplo.com" }}
                         </div>
                         <div class="mb-4">
-                            <label for="exampleInputEmail1" class="form-label font-weight-bold">Confirme su contraseña</label>
-                            <input type="email" class="form-control bg-dark-x border-0" id="exampleInputEmail1" placeholder="Vuelva a ingresar su contraseña" aria-describedby="emailHelp" style="background-color: #ffffff;">
+                            <label for="{{ form.passsword.id_for_label }}" class="form-label font-weight-bold">Contraseña</label>
+                            {{ form.password|add_class:"form-control border-0"|attr:"placeholder:Ingrese su contraseña" }}
                         </div>
-                            <a href="menuprincipal_wiki.html" class="button">Crear cuenta</a>  
+                        <div class="mb-4">
+                            <label for="password-input2" class="form-label font-weight-bold">Confirme su contraseña</label>
+                            <input type="password" name="password_confirm" class="form-control border-0" id="password-input2" placeholder="Vuelva a ingresar su contraseña">
+                            {% if form.password.errors %}
+                            <div class="alert alert-danger my-2" role="alert">{{ form.password.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="button">Crear cuenta</button>  
                     </form>
                 </div>
                 <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
-                    <p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href="" class="text-light font-weight-bold text-decoration-none">Registrate</a>
+                    <p class="d-inline-block mb-0">¿Ya tienes una cuenta?</p> <a href="{% url 'login' %}" class="text-light font-weight-bold text-decoration-none">Inicia Sesión</a>
                 </div>
             </div>
         </div>

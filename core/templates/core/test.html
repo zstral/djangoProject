@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test Formulario</title>
+</head>
+<body>
+    <h1>Test Formulario</h1>
+    <p>Form: {{ form|default:"No form" }}</p>
+    <p>Form as_p: {{ form.as_p|default:"No form as_p" }}</p>
+    <p>Username: {{ form.username|default:"No username" }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

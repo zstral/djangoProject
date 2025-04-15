@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import ForumusersForm, LoginForm, EditProfileForm
+from .models import Forumusers
 
 def home(request, section=None):
     sections = {
@@ -27,19 +29,70 @@ def forum(request):
     })
 
 def signup(request):
+    if request.method == 'POST':
+        form = ForumusersForm(request.POST)
+        confirm_password = request.POST.get('password_confirm')
+        if form.is_valid():
+            if form.cleaned_data['password'] == confirm_password:
+                form.save()
+                return redirect('home')
+            else:
+                form.add_error('password', 'Las contraseñas no coinciden')
+    else:
+        form = ForumusersForm()
     return render(request, 'core/registro_wiki.html', {
         'title': 'Registrarse',
-        'stylesheet': 'core/css/login.css'
+        'stylesheet': 'core/css/login.css',
+        'form': form
     })
-
+    
 def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            try:
+                user = Forumusers.objects.get(email=email, password=password)
+                request.session['user_id'] = user.id
+                return redirect('home')
+            except Forumusers.DoesNotExist:
+                form.add_error(None, 'Email o contraseña incorrectos')
+    else:
+        form = LoginForm()
     return render(request, 'core/inicio_sesion_wiki.html', {
         'title': 'Iniciar Sesión',
-        'stylesheet': 'core/css/login.css'
+        'stylesheet': 'core/css/login.css',
+        'form': form
     })
 
 def account(request):
-    return render(request, 'core/micuentatf.html', {
-        'title': 'Mi Cuenta',
-        'stylesheet': 'core/css/micuenta.css'
-    })
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
+    try:
+        user = Forumusers.objects.get(id=user_id)
+        if request.method == 'POST':
+            form = EditProfileForm(request.POST, instance=user)
+            if form.is_valid():
+                cleaned_data = form.cleaned_data
+                if cleaned_data.get('username'):
+                    user.username = cleaned_data['username']
+                    print(f"Actualizando username a: {user.username}")
+                if cleaned_data.get('email'):
+                    user.email = cleaned_data['email']
+                    print(f"Actualizando email a: {user.email}")
+                if cleaned_data.get('password'):
+                    user.password = cleaned_data['password']
+                user.save()
+                return redirect('account')
+        else:
+            form = EditProfileForm(instance=user)
+        return render(request, 'core/micuentatf.html', {
+            'title': 'Mi Cuenta',
+            'stylesheet': 'core/css/micuenta.css',
+            'user': user,
+            'form': form
+        })
+    except Forumusers.DoesNotExist:
+        return redirect('login')

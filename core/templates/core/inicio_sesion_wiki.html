@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 
-{% load static %}
+{% load static widget_tweaks %}
 
 {% block title %} {{title}} - The Forest Wiki {% endblock %}
 
@@ -32,27 +32,23 @@
 			</div>
 			<div class="col-lg-5 bg-dark d-flex flex-column align-items-end min-vh-100">
 				<div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 mb-auto w-100">
-					
 				</div>
 				<div class="align-self-center w-100 px-lg-5 py-lg-4 p-4">
-				<h1 class="font-weight-bold mb-4" id="subir">Bienvenido Ingresa tu Usuario</h1>
-				<form class="mb-5">
-					<div class="mb-4">
-						<label for="exampleInputEmail1" class="form-label font-weight-bold">Email</label>
-						<input type="email" class="form-control bg-dark-x border-0" id="exampleInputEmail1" placeholder="I" aria-describedby="emailHelp" style="background-color: #ffffff;">
-					</div>
-					<div class="mb-4">
-						<label for="exampleInputPassword1" class="form-label font-weight-bold">Contraseña</label>
-						<input type="password" value="FakePSW" id="myInput" class="form-control bg-dark-x border-0 mb-2" placeholder="Ingresa tu contraseña" id="exampleInputPassword1" 
-						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required style="background-color: #ffffff;">
-						<input type="checkbox" onclick="myFunction()"> Mostrar Contraseña
-						<a href="recuperarcontra.html" id="emailHelp" class="form-text text-muted text-decoration-none">  ¿Has olvidado tu contraseña?</a>                     
-					</div>
-					<a href="menuprincipal_wiki.html" class="button">Iniciar sesion</a>
-
+					<h1 class="font-weight-bold mb-4" id="subir">Bienvenido Ingresa tu Usuario</h1>
+					<form class="mb-5" method="post">
+						{% csrf_token %}
+						<div class="mb-4">
+							<label for="{{ form.email.id_for_label }}" class="form-label font-weight-bold">Email</label>
+							{{ form.email|add_class:"form-control border-0"|attr:"placeholder:nombre@ejemplo.com" }}
+						</div>
+						<div class="mb-4">
+							<label for="{{ form.password.id_for_label }}" class="form-label font-weight-bold">Contraseña</label>
+							{{ form.password|add_class:"form-control border-0"|attr:"placeholder:Ingrese su contraseña" }}
+							<input type="checkbox" onclick="myFunction()"> Mostrar Contraseña
+							<a href="recuperarcontra.html" id="emailHelp" class="form-text text-muted text-decoration-none">  ¿Has olvidado tu contraseña?</a>                     
+						</div>
+						<button type="submit" class="button">Iniciar sesion</button>
 					</form>
-
-
 				</div>
 				<div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 mt-auto w-100">
 					<p class="d-inline-block mb-0">¿Todavia no tienes una cuenta?</p> <a href="{% url 'signup' %}" class="text-light font-weight-bold text-decoration-none">Registrate Aquí</a>
@@ -62,7 +58,7 @@
 	</section>
 	<script>
 	function myFunction() {
-	var x = document.getElementById("myInput");
+	var x = document.getElementById("id_password");
 	if (x.type === "password") {
 	x.type = "text";
 	} else {

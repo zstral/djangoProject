@@ -43,6 +43,11 @@ body {
     width: 100%;
     border-radius: 5px;
   }
+
+  button:hover {
+    background-color: #005eb6;
+  }
+
 .text-light { color: var(--light) !important; }
 .bg-dark { background-color: var(--dark) !important; }
 .bg-dark-x { background-color: var(--dark-x); }
@@ -58,6 +63,7 @@ body {
 }
 .form-control:focus {
     background-color: var(--dark-x);
+    color: var(--text-light);
     outline: none;
 }
 

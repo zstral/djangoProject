@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -74,14 +75,17 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+#Usar las credenciales de la base de datos Oracle en USER Y PASSWORD
+#HOST y PORT Dejar vacío
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'orcl',
-        'USER': 'c##wiki',
+        'NAME': 'x275z8kzii4cxerz_high',
+        'USER': '',
         'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '6000',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
